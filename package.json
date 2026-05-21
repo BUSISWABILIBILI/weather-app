@@ -1,0 +1,10 @@
+{
+  "name": "weather-app",
+  "version": "1.0.0",
+  "description": "A responsive browser-based weather app with current conditions and a 5-day forecast.",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node server.js"
+  }
+}
