@@ -6,6 +6,31 @@ const searchForm = document.querySelector(".search-form");
 const cityInput = document.querySelector("#city-input");
 const loadingElement = document.querySelector(".loading");
 const errorMessage = document.querySelector(".error-message");
+const unitButtons = document.querySelectorAll(".unit-btn");
+
+let currentWeather = null;
+let currentUnit = "celsius";
+
+function convertToFahrenheit(celsius) {
+  return Math.round((celsius * 9) / 5 + 32);
+}
+
+function getWeatherForDisplay() {
+  if (!currentWeather) return null;
+
+  if (currentUnit === "fahrenheit") {
+    return {
+      ...currentWeather,
+      temperature: convertToFahrenheit(currentWeather.temperature),
+      unit: "°F",
+    };
+  }
+
+  return {
+    ...currentWeather,
+    unit: "°C",
+  };
+}
 
 searchForm.addEventListener("submit", async (event) => {
   event.preventDefault();
@@ -19,9 +44,9 @@ searchForm.addEventListener("submit", async (event) => {
 
   try {
     const weatherData = await getWeatherData(city);
-    const cleanWeatherData = processWeatherData(weatherData);
+    currentWeather = processWeatherData(weatherData);
 
-    displayWeather(cleanWeatherData);
+    displayWeather(getWeatherForDisplay());
 
     cityInput.value = "";
   } catch (error) {
@@ -29,4 +54,15 @@ searchForm.addEventListener("submit", async (event) => {
   } finally {
     loadingElement.classList.add("hidden");
   }
+});
+
+unitButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    currentUnit = button.dataset.unit;
+
+    unitButtons.forEach((btn) => btn.classList.remove("active"));
+    button.classList.add("active");
+
+    displayWeather(getWeatherForDisplay());
+  });
 });

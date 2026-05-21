@@ -8,7 +8,7 @@ function displayWeather(weather) {
   cityElement.textContent = `${weather.city}, ${weather.country}`;
   weatherIconElement.src = weather.iconUrl;
   weatherIconElement.alt = weather.condition;
-  temperatureElement.textContent = `${weather.temperature}°C`;
+  temperatureElement.textContent = `${weather.temperature}${weather.unit}`;
   conditionElement.textContent = weather.condition;
 
   detailsElement.innerHTML = `
