@@ -18,6 +18,22 @@ function updateBackground(condition) {
   }
 }
 
+function displayForecast(forecast) {
+  const forecastList = document.querySelector(".forecast-list");
+
+  forecastList.innerHTML = forecast
+    .map(
+      (day) => `
+        <div class="forecast-card">
+          <p>${day.day}</p>
+          <img src="${day.iconUrl}" alt="Weather icon" />
+          <p>${day.maxTemp}° / ${day.minTemp}°</p>
+        </div>
+      `,
+    )
+    .join("");
+}
+
 function displayWeather(weather) {
   if (!weather) return;
 
@@ -38,6 +54,7 @@ function displayWeather(weather) {
     <p>Wind: ${weather.windSpeed} km/h</p>
   `;
 
+  displayForecast(weather.forecast);
   updateBackground(weather.condition);
 }
 
