@@ -32,13 +32,7 @@ function getWeatherForDisplay() {
   };
 }
 
-searchForm.addEventListener("submit", async (event) => {
-  event.preventDefault();
-
-  const city = cityInput.value.trim();
-
-  if (city === "") return;
-
+async function loadWeather(city) {
   loadingElement.classList.remove("hidden");
   errorMessage.classList.add("hidden");
 
@@ -47,13 +41,23 @@ searchForm.addEventListener("submit", async (event) => {
     currentWeather = processWeatherData(weatherData);
 
     displayWeather(getWeatherForDisplay());
-
-    cityInput.value = "";
   } catch (error) {
     errorMessage.classList.remove("hidden");
   } finally {
     loadingElement.classList.add("hidden");
   }
+}
+
+searchForm.addEventListener("submit", async (event) => {
+  event.preventDefault();
+
+  const city = cityInput.value.trim();
+
+  if (city === "") return;
+
+  await loadWeather(city);
+
+  cityInput.value = "";
 });
 
 unitButtons.forEach((button) => {
@@ -66,3 +70,5 @@ unitButtons.forEach((button) => {
     displayWeather(getWeatherForDisplay());
   });
 });
+
+loadWeather("Johannesburg");
