@@ -7,21 +7,60 @@
 :root {
   --panel: rgba(255, 255, 255, 0.92);
   --panel-soft: rgba(255, 255, 255, 0.72);
+  --forecast-panel: rgba(244, 250, 252, 0.82);
+  --forecast-card: #ffffff;
+  --toggle-panel: #eef6fa;
+  --toggle-active: #ffffff;
   --text: #102033;
   --muted: #617083;
   --accent: #0f8bb8;
   --accent-strong: #075985;
   --line: rgba(16, 32, 51, 0.1);
   --shadow: 0 24px 60px rgba(15, 23, 42, 0.24);
+  --focus-ring: rgba(14, 165, 233, 0.35);
+  color-scheme: light;
+}
+
+body.dark-mode {
+  background:
+    radial-gradient(
+      circle at top left,
+      rgba(56, 189, 248, 0.24),
+      transparent 30rem
+    ),
+    linear-gradient(135deg, #08111f, #111827 48%, #172033);
+  --panel: rgba(15, 23, 42, 0.92);
+  --panel-soft: rgba(30, 41, 59, 0.78);
+  --forecast-panel: rgba(15, 23, 42, 0.72);
+  --forecast-card: rgba(30, 41, 59, 0.95);
+  --toggle-panel: rgba(15, 23, 42, 0.82);
+  --toggle-active: #0f172a;
+  --text: #e5eef9;
+  --muted: #a8b7ca;
+  --accent: #38bdf8;
+  --accent-strong: #7dd3fc;
+  --line: rgba(226, 232, 240, 0.16);
+  --shadow: 0 24px 70px rgba(0, 0, 0, 0.38);
+  --focus-ring: rgba(125, 211, 252, 0.42);
+  color-scheme: dark;
 }
 
 body {
   font-family:
-    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
     sans-serif;
   min-height: 100vh;
   background:
-    radial-gradient(circle at top left, rgba(125, 211, 252, 0.5), transparent 32rem),
+    radial-gradient(
+      circle at top left,
+      rgba(125, 211, 252, 0.5),
+      transparent 32rem
+    ),
     linear-gradient(135deg, #eef7fb, #d9ecf5 42%, #f6efe6);
   color: var(--text);
   display: flex;
@@ -31,27 +70,83 @@ body {
   transition: background 0.35s ease;
 }
 
+body.dark-mode.default-weather {
+  background:
+    radial-gradient(
+      circle at top left,
+      rgba(56, 189, 248, 0.24),
+      transparent 30rem
+    ),
+    linear-gradient(135deg, #08111f, #111827 48%, #172033);
+}
+
+body.dark-mode.sunny {
+  background:
+    radial-gradient(
+      circle at top left,
+      rgba(250, 204, 21, 0.28),
+      transparent 30rem
+    ),
+    linear-gradient(135deg, #111827, #1e293b 48%, #30280f);
+}
+
+body.dark-mode.cloudy {
+  background:
+    radial-gradient(
+      circle at top left,
+      rgba(148, 163, 184, 0.22),
+      transparent 30rem
+    ),
+    linear-gradient(135deg, #0f172a, #1f2937 48%, #273242);
+}
+
+body.dark-mode.rainy {
+  background:
+    radial-gradient(
+      circle at top left,
+      rgba(59, 130, 246, 0.24),
+      transparent 30rem
+    ),
+    linear-gradient(135deg, #07111f, #102033 48%, #1d3550);
+}
+
 body.default-weather {
   background:
-    radial-gradient(circle at top left, rgba(125, 211, 252, 0.5), transparent 32rem),
+    radial-gradient(
+      circle at top left,
+      rgba(125, 211, 252, 0.5),
+      transparent 32rem
+    ),
     linear-gradient(135deg, #eef7fb, #d9ecf5 42%, #f6efe6);
 }
 
 body.sunny {
   background:
-    radial-gradient(circle at top left, rgba(254, 240, 138, 0.7), transparent 32rem),
+    radial-gradient(
+      circle at top left,
+      rgba(254, 240, 138, 0.7),
+      transparent 32rem
+    ),
     linear-gradient(135deg, #fff7d6, #bfe9ff 55%, #ffe2bd);
 }
 
 body.cloudy {
   background:
-    radial-gradient(circle at top left, rgba(203, 213, 225, 0.75), transparent 32rem),
+    radial-gradient(
+      circle at top left,
+      rgba(203, 213, 225, 0.75),
+      transparent 32rem
+    ),
     linear-gradient(135deg, #f4f7fb, #d7e0ea 48%, #c2d1dc);
 }
 
 body.rainy {
   background:
-    radial-gradient(circle at top left, rgba(147, 197, 253, 0.5), transparent 32rem),
+    radial-gradient(
+      circle at top left,
+      rgba(147, 197, 253, 0.5),
+      transparent 32rem
+    ),
     linear-gradient(135deg, #dceafe, #bfd5e6 48%, #9fb6ca);
 }
 
@@ -61,6 +156,10 @@ body.rainy {
 }
 
 .header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
   margin-bottom: 22px;
 }
 
@@ -73,6 +172,65 @@ body.rainy {
 .header p {
   color: var(--muted);
   font-size: 1rem;
+}
+
+.theme-toggle {
+  flex: 0 0 auto;
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: transparent;
+  color: var(--text);
+  cursor: pointer;
+  padding: 0;
+  transition:
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.theme-icon {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
+}
+
+.sun-icon {
+  opacity: 0;
+  transform: rotate(-35deg) scale(0.75);
+}
+
+.moon-icon {
+  opacity: 1;
+  transform: rotate(0deg) scale(1);
+}
+
+body.dark-mode .sun-icon {
+  opacity: 1;
+  transform: rotate(0deg) scale(1);
+}
+
+body.dark-mode .moon-icon {
+  opacity: 0;
+  transform: rotate(35deg) scale(0.75);
+}
+
+.theme-toggle:hover {
+  color: var(--accent-strong);
+  transform: translateY(-1px);
+}
+
+.theme-toggle:focus-visible,
+.search-form input:focus-visible,
+.search-form button:focus-visible,
+.unit-btn:focus-visible {
+  outline: 3px solid var(--focus-ring);
+  outline-offset: 2px;
 }
 
 .search-form {
@@ -126,7 +284,7 @@ body.rainy {
   gap: 28px;
   align-items: center;
   padding: 28px;
-  border: 1px solid rgba(255, 255, 255, 0.72);
+  border: 1px solid var(--line);
   border-radius: 8px;
   background: var(--panel);
   box-shadow: var(--shadow);
@@ -206,7 +364,7 @@ body.rainy {
   padding: 4px;
   border: 1px solid var(--line);
   border-radius: 8px;
-  background: #eef6fa;
+  background: var(--toggle-panel);
 }
 
 .unit-btn {
@@ -221,7 +379,7 @@ body.rainy {
 }
 
 .unit-btn.active {
-  background: white;
+  background: var(--toggle-active);
   color: var(--accent-strong);
   box-shadow: 0 6px 18px rgba(15, 23, 42, 0.12);
 }
@@ -232,7 +390,7 @@ body.rainy {
   padding: 18px;
   border: 1px solid var(--line);
   border-radius: 8px;
-  background: rgba(244, 250, 252, 0.82);
+  background: var(--forecast-panel);
 }
 
 .forecast h3 {
@@ -256,7 +414,7 @@ body.rainy {
   min-height: 54px;
   padding: 8px 10px;
   border-radius: 8px;
-  background: white;
+  background: var(--forecast-card);
   box-shadow: 0 8px 20px rgba(15, 23, 42, 0.07);
 }
 
@@ -283,6 +441,10 @@ body.rainy {
 
   .header h1 {
     font-size: 2rem;
+  }
+
+  .header {
+    align-items: center;
   }
 
   .temperature {

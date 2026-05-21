@@ -2,7 +2,7 @@ function updateBackground(condition) {
   const body = document.body;
   const weatherCondition = condition.toLowerCase();
 
-  body.className = "";
+  body.classList.remove("default-weather", "sunny", "cloudy", "rainy");
 
   if (weatherCondition.includes("rain")) {
     body.classList.add("rainy");
