@@ -17,6 +17,22 @@ body {
   padding: 20px;
 }
 
+body.default-weather {
+  background: linear-gradient(135deg, #0f172a, #1e293b, #334155);
+}
+
+body.sunny {
+  background: linear-gradient(135deg, #f59e0b, #f97316, #7c2d12);
+}
+
+body.cloudy {
+  background: linear-gradient(135deg, #64748b, #334155, #0f172a);
+}
+
+body.rainy {
+  background: linear-gradient(135deg, #0f172a, #1e40af, #1e293b);
+}
+
 .app {
   width: 100%;
   max-width: 500px;
