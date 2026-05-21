@@ -43,7 +43,7 @@ function displayWeather(weather) {
   const conditionElement = document.querySelector(".condition");
   const detailsElement = document.querySelector(".details");
 
-  cityElement.textContent = `${weather.city}, ${weather.country}`;
+  cityElement.textContent = weather.city;
   weatherIconElement.src = weather.iconUrl;
   weatherIconElement.alt = weather.condition;
   temperatureElement.textContent = `${weather.temperature}${weather.unit}`;

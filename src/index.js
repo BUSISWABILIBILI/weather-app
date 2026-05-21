@@ -6,6 +6,7 @@ const searchForm = document.querySelector(".search-form");
 const cityInput = document.querySelector("#city-input");
 const loadingElement = document.querySelector(".loading");
 const errorMessage = document.querySelector(".error-message");
+const weatherContainer = document.querySelector(".weather-container");
 const unitButtons = document.querySelectorAll(".unit-btn");
 
 let currentWeather = null;
@@ -46,8 +47,12 @@ async function loadWeather(city) {
     currentWeather = processWeatherData(weatherData);
 
     displayWeather(getWeatherForDisplay());
+    weatherContainer.classList.remove("hidden");
   } catch (error) {
     errorMessage.classList.remove("hidden");
+    if (!currentWeather) {
+      weatherContainer.classList.add("hidden");
+    }
   } finally {
     loadingElement.classList.add("hidden");
   }
