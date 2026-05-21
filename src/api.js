@@ -14,7 +14,7 @@ async function getWeatherData(city) {
 
     return data;
   } catch (error) {
-    console.error(error);
+    throw error;
   }
 }
 
