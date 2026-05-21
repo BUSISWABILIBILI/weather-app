@@ -22,13 +22,18 @@ function getWeatherForDisplay() {
     return {
       ...currentWeather,
       temperature: convertToFahrenheit(currentWeather.temperature),
-      unit: "°F",
+      forecast: currentWeather.forecast.map((day) => ({
+        ...day,
+        maxTemp: convertToFahrenheit(day.maxTemp),
+        minTemp: convertToFahrenheit(day.minTemp),
+      })),
+      unit: "\u00b0F",
     };
   }
 
   return {
     ...currentWeather,
-    unit: "°C",
+    unit: "\u00b0C",
   };
 }
 

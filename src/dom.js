@@ -18,7 +18,7 @@ function updateBackground(condition) {
   }
 }
 
-function displayForecast(forecast) {
+function displayForecast(forecast, unit) {
   const forecastList = document.querySelector(".forecast-list");
 
   forecastList.innerHTML = forecast
@@ -27,7 +27,7 @@ function displayForecast(forecast) {
         <div class="forecast-card">
           <p>${day.day}</p>
           <img src="${day.iconUrl}" alt="Weather icon" />
-          <p>${day.maxTemp}° / ${day.minTemp}°</p>
+          <p>${day.maxTemp}${unit} / ${day.minTemp}${unit}</p>
         </div>
       `,
     )
@@ -54,7 +54,7 @@ function displayWeather(weather) {
     <p>Wind: ${weather.windSpeed} km/h</p>
   `;
 
-  displayForecast(weather.forecast);
+  displayForecast(weather.forecast, weather.unit);
   updateBackground(weather.condition);
 }
 
